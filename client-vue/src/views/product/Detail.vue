@@ -1,6 +1,20 @@
 <template>
    <div>
-      <h1>Detail Page</h1>
+      <div id="page-wrap" v-if="product">
+         <h4 v-if="notif" class="notif">item added successfully</h4>
+         <div id="img-wrap">
+            <img :src="`http://localhost:8000${product.imageUrl}`" alt="" />
+         </div>
+         <div id="product-details">
+            <h1>{{ product.name }}</h1>
+            <h3 id="price">Rp{{ product.price }}</h3>
+            <p>Average rating: {{ product.averageRating }}</p>
+            <button id="add-to-cart" @click="addToCart()">Add to Cart</button>
+            <p>{{ product.description }}</p>
+         </div>
+      </div>
+
+      <NotFound v-else />
    </div>
 </template>
 
