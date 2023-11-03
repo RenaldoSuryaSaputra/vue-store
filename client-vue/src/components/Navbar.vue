@@ -1,11 +1,15 @@
+<script setup>
+import { RouterLink } from "vue-router";
+</script>
+
 <template>
     <div id="nav-bar">
-        <router-link :to="{ name: 'product' }" id="products-link">
+        <RouterLink :to="{ name: 'product' }" id="products-link" >
             <h1>Vuestore</h1>
-        </router-link>
-        <router-link :to="{ name: 'cart' }" id="cart-link">
+        </RouterLink>
+        <RouterLink :to="{ name: 'cart' }" id="cart-link">
             <button>Cart</button>
-        </router-link>
+        </RouterLink>
     </div>
   </template>
   

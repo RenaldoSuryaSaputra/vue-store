@@ -1,6 +1,5 @@
 <template>
    <div>
-      <h1>Product detail</h1>
       <div id="page-wrap" v-if="selected_product">
          <h4 v-if="notif" class="notif">item added successfully</h4>
          <div id="img-wrap">
@@ -22,7 +21,12 @@
 
 <script>
 import {products} from '../../data-seed'
+import NotFound from '../../views/error/404.vue'
+
 export default {
+   components: {
+      NotFound
+   },
    data() {
       return {
          products
