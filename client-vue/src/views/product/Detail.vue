@@ -1,16 +1,18 @@
 <template>
    <div>
-      <div id="page-wrap" v-if="product">
+      <h1>Product detail</h1>
+      <div id="page-wrap" v-if="selected_product">
          <h4 v-if="notif" class="notif">item added successfully</h4>
          <div id="img-wrap">
-            <img :src="`http://localhost:8000${product.imageUrl}`" alt="" />
+            <!-- <img :src="`http://localhost:8000${selected_product.imageUrl}`" alt="" /> -->
+            <img :src="selected_product.imageUrl" alt="" />
          </div>
-         <div id="product-details">
-            <h1>{{ product.name }}</h1>
-            <h3 id="price">Rp{{ product.price }}</h3>
-            <p>Average rating: {{ product.averageRating }}</p>
+         <div id="selected_product-details">
+            <h1>{{ selected_product.name }}</h1>
+            <h3 id="price">Rp{{ selected_product.price }}</h3>
+            <p>Average rating: {{ selected_product.averageRating }}</p>
             <button id="add-to-cart" @click="addToCart()">Add to Cart</button>
-            <p>{{ product.description }}</p>
+            <p>{{ selected_product.description }}</p>
          </div>
       </div>
 
@@ -19,7 +21,24 @@
 </template>
 
 <script>
-export default {};
+import {products} from '../../data-seed'
+export default {
+   data() {
+      return {
+         products
+      }
+   },
+   computed: {
+      selected_product() {
+         return this.products.find((item) => { // find selected product
+            return item.id === this.$route.params.id // get route params with name :id
+         })
+      }
+   },
+   mounted() { // lifecycle pada saat komponen dibuka
+      console.log(this.selected_product)
+   }
+};
 </script>
 
 <style scoped>
