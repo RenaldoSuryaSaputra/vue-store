@@ -2,19 +2,12 @@
    <div>
       <div id="page-wrap">
          <div class="grid-wrap">
-            <div
+            <!-- props dengan data product -->
+            <ProductItem
                v-for="(product, index) in products"
                :key="index"
-               :product="product"
-            >
-               <img :src="product.imageUrl" alt="" />
-               <h3>{{ product.name }}</h3>
-               <h3>Rp {{ product.price }}</h3>
-               <router-link
-                  :to="{ name: 'product-detail', params: { id: product.id } }"
-                  >Details</router-link
-               >
-            </div>
+               :dataProduct="product"
+            />
          </div>
       </div>
    </div>
@@ -22,9 +15,12 @@
 
 <script>
 import { products } from "../../data-seed";
+import ProductItem from "../../components/ProductItem.vue";
 
-console.log(products);
 export default {
+   components: {
+      ProductItem,
+   },
    data() {
       return {
          products,

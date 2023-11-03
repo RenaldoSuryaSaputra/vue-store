@@ -8,7 +8,7 @@
             :item="item"
             v-on:remove-item="removeFromCart($event)"
          />
-         <h3 id="total-price">Total: Rp{{ totalPrice }}</h3>
+         <h3 id="total-price">Total: Rp {{ totalPrice }}</h3>
          <button id="checkout-button">Checkout</button>
       </div>
    </div>
@@ -16,8 +16,12 @@
 
 <script>
 import { cartItems } from "../../data-seed";
+import ItemCart from "../../components/ItemCart.vue";
 
 export default {
+   components: {
+      ItemCart,
+   },
    data() {
       return {
          cartItems,
@@ -27,11 +31,13 @@ export default {
       // untuk GET
       totalPrice() {
          // reduce callback masing-masing array pada cartItems karena cartItems berisi array
-         return this.cartItems.reduce((sum, item) => {
-            sum + Number(item.price);
-         }, 0); // 0params2 dari reduce currentValue
+         return this.cartItems.reduce((sum, item) => (
+            sum + Number(item.price)), 0); // 0params2 dari reduce currentValue
       },
    },
+   mounted() {
+      console.log(this.totalPrice)
+   }
 };
 </script>
 
