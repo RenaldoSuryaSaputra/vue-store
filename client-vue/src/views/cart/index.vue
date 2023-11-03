@@ -15,7 +15,24 @@
 </template>
 
 <script>
-export default {};
+import { cartItems } from "../../data-seed";
+
+export default {
+   data() {
+      return {
+         cartItems,
+      };
+   },
+   computed: {
+      // untuk GET
+      totalPrice() {
+         // reduce callback masing-masing array pada cartItems karena cartItems berisi array
+         return this.cartItems.reduce((sum, item) => {
+            sum + Number(item.price);
+         }, 0); // 0params2 dari reduce currentValue
+      },
+   },
+};
 </script>
 
 <style scoped>
