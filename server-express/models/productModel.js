@@ -16,6 +16,6 @@ productSchema.method("toJSON", function () {
    return object;
 });
 
-const Product = mongoose.model("products", schema);
+const Product = mongoose.model("products", productSchema);
 
 export default Product
