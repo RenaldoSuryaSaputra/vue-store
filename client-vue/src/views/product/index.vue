@@ -4,7 +4,7 @@
          <div class="grid-wrap">
             <!-- props dengan data product -->
             <ProductItem
-               v-for="(product, index) in products"
+               v-for="(product, index) in products.data"
                :key="index"
                :dataProduct="product"
             />
@@ -14,7 +14,8 @@
 </template>
 
 <script>
-import { products } from "../../data-seed";
+// import { products } from "../../data-seed";
+import axios from "axios";
 import ProductItem from "../../components/ProductItem.vue";
 
 export default {
@@ -23,9 +24,15 @@ export default {
    },
    data() {
       return {
-         products,
+         products: [],
       };
    },
+   async created() {
+      const result = await axios.get(
+         `${import.meta.env.VITE_APP_SERVER_URL}/products`
+      );
+       this.products = result.data
+   }, 
 };
 </script>
 

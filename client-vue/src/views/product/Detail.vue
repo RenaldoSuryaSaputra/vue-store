@@ -1,17 +1,16 @@
 <template>
    <div>
-      <div id="page-wrap" v-if="selected_product">
+      <div id="page-wrap" v-if="product">
          <h4 v-if="notif" class="notif">item added successfully</h4>
          <div id="img-wrap">
-            <!-- <img :src="`http://localhost:8000${selected_product.imageUrl}`" alt="" /> -->
-            <img :src="selected_product.imageUrl" alt="" />
+            <img :src="`http://localhost:8000${product.imageUrl}`" alt="" />
          </div>
-         <div id="selected_product-details">
-            <h1>{{ selected_product.name }}</h1>
-            <h3 id="price">Rp{{ selected_product.price }}</h3>
-            <p>Average rating: {{ selected_product.averageRating }}</p>
+         <div id="product-details">
+            <h1>{{ product.name }}</h1>
+            <h3 id="price">Rp{{ product.price }}</h3>
+            <p>Average rating: {{ product.averageRating }}</p>
             <button id="add-to-cart" @click="addToCart()">Add to Cart</button>
-            <p>{{ selected_product.description }}</p>
+            <p>{{ product.description }}</p>
          </div>
       </div>
 
@@ -20,28 +19,47 @@
 </template>
 
 <script>
-import {products} from '../../data-seed'
-import NotFound from '../../views/error/404.vue'
+// import {products} from '../../data-seed'
+import axios from "axios";
+import NotFound from "../../views/error/404.vue";
 
 export default {
    components: {
-      NotFound
+      NotFound,
    },
    data() {
       return {
-         products
-      }
+         product: {},
+         notif: false
+      };
+   },
+   async created() {
+      const code = this.$route.params.id; // get param id in route
+      const result = await axios.get(
+         `${import.meta.env.VITE_APP_SERVER_URL}/products/${code}`
+      );
+      console.log(result);
+      this.product = result.data;
+   },
+   methods: {
+      async addToCart() {
+         await axios.post(
+            `${import.meta.env.VITE_APP_SERVER_URL}/orders/update/user/1`,
+            {
+               product: this.$route.params.id,
+            }
+         );
+         this.notif = true;
+      },
    },
    computed: {
       selected_product() {
-         return this.products.find((item) => { // find selected product
-            return item.id === this.$route.params.id // get route params with name :id
-         })
-      }
+         return this.products.find((item) => {
+            // find selected product
+            return item.id === this.$route.params.id; // get route params with name :id
+         });
+      },
    },
-   mounted() { // lifecycle pada saat komponen dibuka
-      console.log(this.selected_product)
-   }
 };
 </script>
 

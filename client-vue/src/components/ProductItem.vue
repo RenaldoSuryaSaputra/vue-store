@@ -1,11 +1,10 @@
 <template lang="">
    <div class="product-item">
-      <!-- <img :src="`http://localhost:8000${product.imageUrl}`" alt="" /> -->
-      <img :src="dataProduct.imageUrl" alt="" />
+      <img :src="`http://localhost:8000${dataProduct.imageUrl}`" alt="" />
       <h3 class="product-name">{{ dataProduct.name }}</h3>
       <p class="product-price">Rp{{ dataProduct.price }}</p>
       <router-link
-         :to="{ name: 'product-detail', params: { id: dataProduct.id } }"
+         :to="{ name: 'product-detail', params: { id: dataProduct.code } }"
       >
          <button>Detail</button>
       </router-link>

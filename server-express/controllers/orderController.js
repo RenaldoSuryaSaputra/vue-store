@@ -46,7 +46,7 @@ const addToCart = (req, res) => {
             // menambahkan data dengan tipe SET biar gak ada duplikat
             cart_items: productCode,
          },
-      },
+      }
    )
       .then((result) => {
          res.status(202).send({
@@ -70,13 +70,14 @@ const removeFromCart = (req, res) => {
          user_id: id,
       },
       {
-         $pull: { // mengambil data di chart
+         $pull: {
+            // mengambil data di chart
             cart_items: productCode,
          },
       }
    )
       .then((result) => {
-         res.status(200).send({result: result});
+         res.status(200).send({ result });
       })
       .catch((err) => {
          res.status(409).send({
