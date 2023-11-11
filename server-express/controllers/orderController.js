@@ -35,7 +35,7 @@ const findCart = (req, res) => {
 
 const addToCart = (req, res) => {
    const id = Number(req.params.id);
-   const productCode = String(req.body.product);
+   const productCode = String(req.body.product); // req body { product: "123"}
 
    Order.updateOne(
       {
@@ -43,12 +43,16 @@ const addToCart = (req, res) => {
       },
       {
          $addToSet: {
+            // menambahkan data dengan tipe SET biar gak ada duplikat
             cart_items: productCode,
          },
-      }
+      },
    )
       .then((result) => {
-         res.send(result);
+         res.status(202).send({
+            message: "Success add product",
+            result: result,
+         });
       })
       .catch((err) => {
          res.status(409).send({
@@ -66,7 +70,7 @@ const removeFromCart = (req, res) => {
          user_id: id,
       },
       {
-         $pull: {
+         $pull: { // mengambil data di chart
             cart_items: productCode,
          },
       }
