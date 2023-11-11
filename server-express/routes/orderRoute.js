@@ -10,6 +10,6 @@ const router = express.Router();
 // in
 router.route("/user/:id").get(findCart);
 router.route("/update/user/:id").post(addToCart); // {product: "123"}
-router.route("/delete/user/:id/product/:code").delete(removeFromCart);
+router.route("/delete/user/:id/product/:code").delete(removeFromCart); // code : 123
 
 export default router;

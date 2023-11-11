@@ -76,7 +76,7 @@ const removeFromCart = (req, res) => {
       }
    )
       .then((result) => {
-         res.send(result);
+         res.status(200).send({result: result});
       })
       .catch((err) => {
          res.status(409).send({
