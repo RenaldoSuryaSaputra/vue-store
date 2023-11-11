@@ -1,9 +1,12 @@
-import Product from "../models/productModel";
+import Product from "../models/productModel.js";
 
 const findAll = (req, res) => {
    Product.find()
       .then((result) => {
-         res.send(result);
+         res.status(202).send({
+            data: result,
+            message: "Success Get Data",
+         });
       })
       .catch((err) => {
          res.status(500).send({
@@ -26,7 +29,4 @@ const findOne = (req, res) => {
       });
 };
 
-export { 
-    findAll, 
-    findOne 
-};
+export { findAll, findOne };
